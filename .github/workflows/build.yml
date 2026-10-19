@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: Checkout repository
       uses: actions/checkout@v4
 
     - name: Set up JDK 17
@@ -18,18 +18,18 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-        cache: gradle
 
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
 
-    - name: Setup Gradle
+    - name: Install and Setup Gradle
       uses: gradle/actions/setup-gradle@v3
       with:
-        gradle-version: '8.2'
+        gradle-version: 8.2
 
-    - name: Build Android App Bundle (Release AAB)
-      run: gradle bundleRelease --stacktrace
+    - name: Build Android App Bundle (Release)
+      run: |
+        gradle bundleRelease --no-daemon --stacktrace
 
     - name: Upload AAB Artifact
       uses: actions/upload-artifact@v4
