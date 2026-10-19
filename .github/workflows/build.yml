@@ -22,14 +22,15 @@ jobs:
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
 
-    - name: Install and Setup Gradle
+    - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v3
       with:
         gradle-version: 8.2
 
-    - name: Build Android App Bundle (Release)
+    - name: Generate Wrapper & Build AAB
       run: |
-        gradle bundleRelease --no-daemon --stacktrace
+        gradle wrapper
+        ./gradlew bundleRelease --stacktrace
 
     - name: Upload AAB Artifact
       uses: actions/upload-artifact@v4
